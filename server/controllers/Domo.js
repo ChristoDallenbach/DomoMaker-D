@@ -75,7 +75,6 @@ const pubPage = (req, res) => {
 };
 
 const getPubDomos = (request, response) => {
-    const req = request;
     const res = response;
     
     return Domo.DomoModel.findByPub((err, docs) => {
