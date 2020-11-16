@@ -18,9 +18,16 @@ const makeDomo = (req, res) => {
         return res.status(400).json({ error: 'RAWR! Both name and age are required' });
     }
     
+    let pub = false;
+    
+    if (req.body.public === "on"){
+        pub = true;
+    }
+    
     const domoData = {
         name: req.body.name,
         age: req.body.age,
+        public: pub,
         owner: req.session.account._id,
     };
     
@@ -56,6 +63,33 @@ const getDomos = (request, response) => {
     });
 };
 
+const pubPage = (req, res) => {
+  Domo.DomoModel.findByPub((err, docs) => {
+      if (err) {
+          console.log(err);
+          return res.status(400).json({ error: 'An error occurred' });
+      }
+      
+      return res.render('public', { csrfToken: req.csrfToken(), domos: docs });
+  });
+};
+
+const getPubDomos = (request, response) => {
+    const req = request;
+    const res = response;
+    
+    return Domo.DomoModel.findByPub((err, docs) => {
+        if(err) {
+            console.log(err);
+            return res.status(400).json({ error: 'An error occurred' });
+        }
+        
+        return res.json({ domos: docs });
+    });
+};
+
 module.exports.makerPage = makerPage;
+module.exports.pubPage = pubPage;
 module.exports.getDomos = getDomos;
+module.exports.getPubDomos = getPubDomos;
 module.exports.make = makeDomo;
