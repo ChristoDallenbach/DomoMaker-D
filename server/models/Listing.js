@@ -6,7 +6,6 @@ let ListingModel = {};
 
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
-const setContact = (contact) => _.escape(contact).trim();
 
 const ListingSchema = new mongoose.Schema({
     name: {
