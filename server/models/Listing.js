@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
 
-let DomoModel = {};
+let ListingModel = {};
 
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
+const setContact = (contact) => _.escape(contact).trim();
 
-const DomoSchema = new mongoose.Schema({
+const ListingSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -15,10 +16,16 @@ const DomoSchema = new mongoose.Schema({
         set: setName,
     },
         
-    age: {
+    price: {
         type: Number,
         min: 0,
         required: true,
+    },
+    
+    contact: {
+        type: String,
+        required: true,
+        trim: true,
     },
     
     public: {
@@ -38,29 +45,30 @@ const DomoSchema = new mongoose.Schema({
     },
 });
       
-DomoSchema.statics.toAPI = (doc) => ({
+ListingSchema.statics.toAPI = (doc) => ({
     name: doc.name,
-    age: doc.age,
+    price: doc.price,
+    contact: doc.contact,
     public: doc.public,
 });
 
-DomoSchema.statics.findByOwner = (ownerId, callback) => {
+ListingSchema.statics.findByOwner = (ownerId, callback) => {
     const search = {
         owner: convertId(ownerId),
     };
     
-    return DomoModel.find(search).select('name age public').lean().exec(callback);
+    return ListingModel.find(search).select('name price contact public').lean().exec(callback);
 };
 
-DomoSchema.statics.findByPub = (callback) => {
+ListingSchema.statics.findByPub = (callback) => {
     const search = {
         public: true,
     };
     
-    return DomoModel.find(search).select('name age').lean().exec(callback);
+    return ListingModel.find(search).select('name price contact').lean().exec(callback);
 };
 
-DomoModel = mongoose.model('Domo', DomoSchema);
+ListingModel = mongoose.model('Listing', ListingSchema);
 
-module.exports.DomoModel = DomoModel;
-module.exports.DomoSchema = DomoSchema;
+module.exports.ListingModel = ListingModel;
+module.exports.ListingSchema = ListingSchema;

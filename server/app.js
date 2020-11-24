@@ -14,7 +14,7 @@ const redis = require('redis');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
+const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/ListingMaker';
 
 const mongooseOptions = {
   useNewUrlParser: true,

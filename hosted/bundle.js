@@ -1,114 +1,123 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
+var handleListing = function handleListing(e) {
   e.preventDefault();
-  $("#domoMessage").animate({
+  $("#listingMessage").animate({
     width: 'hide'
   }, 350);
 
-  if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
+  if ($("#listingName").val() == '' || $("#listingPrice").val() == '' || $("#listingContact").val() == '') {
     handleError("RAWR! All fields are required");
     return false;
   }
 
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
-    loadDomosFromServer();
+  sendAjax('POST', $("#listingForm").attr("action"), $("#listingForm").serialize(), function () {
+    loadListingsFromServer();
   });
   return false;
 };
 
-var DomoForm = function DomoForm(props) {
+var ListingForm = function ListingForm(props) {
   return /*#__PURE__*/React.createElement("form", {
-    id: "domoForm",
-    onSubmit: handleDomo,
-    name: "domoForm",
+    id: "listingForm",
+    onSubmit: handleListing,
+    name: "listingForm",
     action: "/maker",
     method: "POST",
-    className: "domoForm"
+    className: "listingForm"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "name"
   }, "Name: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoName",
+    id: "listingName",
     type: "text",
     name: "name",
-    placeholder: "Domo Name"
+    placeholder: "Listing Name"
   }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "age"
-  }, "Age: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoAge",
+    htmlFor: "price"
+  }, "Price: "), /*#__PURE__*/React.createElement("input", {
+    id: "listingPrice",
     type: "text",
-    name: "age",
-    placeholder: "Domo Age"
+    name: "price",
+    placeholder: "Listing Price"
   }), /*#__PURE__*/React.createElement("label", {
     htmlFor: "public"
   }, "Public: "), /*#__PURE__*/React.createElement("input", {
-    id: "domoPub",
+    id: "listingPub",
     type: "checkbox",
     name: "public",
-    placeholder: "Domo Public"
+    placeholder: "Listing Public"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "contact"
+  }, "Contact: "), /*#__PURE__*/React.createElement("input", {
+    id: "listingContact",
+    type: "text",
+    name: "contact",
+    placeholder: "Listing Contact Info"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
   }), /*#__PURE__*/React.createElement("input", {
-    className: "makeDomoSubmit",
+    className: "makeListingSubmit",
     type: "submit",
-    value: "Make Domo"
+    value: "Make Listing"
   }));
 };
 
-var DomoList = function DomoList(props) {
-  if (props.domos.length === 0) {
+var ListingList = function ListingList(props) {
+  if (props.listings.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "domoList"
+      className: "listingList"
     }, /*#__PURE__*/React.createElement("h3", {
-      className: "emptyDomo"
-    }, "No Domos yet"));
+      className: "emptyListing"
+    }, "No Listings yet"));
   }
 
-  var domoNodes = props.domos.map(function (domo) {
+  var listingNodes = props.listings.map(function (listing) {
     var pub = "False";
 
-    if (domo["public"]) {
+    if (listing["public"]) {
       pub = "True";
     }
 
     return /*#__PURE__*/React.createElement("div", {
-      key: domo._id,
-      className: "domo"
+      key: listing._id,
+      className: "listing"
     }, /*#__PURE__*/React.createElement("img", {
       src: "/assets/img/domoface.jpeg",
       alt: "domo face",
-      className: "domoFace"
+      className: "listingFace"
     }), /*#__PURE__*/React.createElement("h3", {
-      className: "domoName"
-    }, " Name: ", domo.name, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "domoAge"
-    }, " Age: ", domo.age, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "domoPub"
-    }, " Public: ", pub, " "));
+      className: "listingName"
+    }, " Name: ", listing.name, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "listingPrice"
+    }, " Price: ", listing.price, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "listingPub"
+    }, " Public: ", pub, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "listingContact"
+    }, " Contact: ", listing.contact));
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "domoList"
-  }, domoNodes);
+    className: "listingList"
+  }, listingNodes);
 };
 
-var loadDomosFromServer = function loadDomosFromServer() {
-  sendAjax('GET', '/getDomos', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-      domos: data.domos
-    }), document.querySelector("#domos"));
+var loadListingsFromServer = function loadListingsFromServer() {
+  sendAjax('GET', '/getListings', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ListingList, {
+      listings: data.listings
+    }), document.querySelector("#listings"));
   });
 };
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoForm, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(ListingForm, {
     csrf: csrf
-  }), document.querySelector("#makeDomo"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-    domos: []
-  }), document.querySelector("#domos"));
-  loadDomosFromServer();
+  }), document.querySelector("#makeListing"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(ListingList, {
+    listings: []
+  }), document.querySelector("#listings"));
+  loadListingsFromServer();
 };
 
 var getToken = function getToken() {
@@ -124,13 +133,13 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
+  $("#listingMessage").animate({
     width: 'toggle'
   }, 350);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
+  $("#listingMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;

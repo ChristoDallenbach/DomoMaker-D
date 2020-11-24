@@ -1,46 +1,48 @@
 "use strict";
 
-var DomoList = function DomoList(props) {
-  if (props.domos.length === 0) {
+var ListingList = function ListingList(props) {
+  if (props.listings.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
-      className: "domoList"
+      className: "listingList"
     }, /*#__PURE__*/React.createElement("h3", {
-      className: "emptyDomo"
-    }, "No Domos yet"));
+      className: "emptyListing"
+    }, "No Listings yet"));
   }
 
-  var domoNodes = props.domos.map(function (domo) {
+  var listingNodes = props.listings.map(function (listing) {
     return /*#__PURE__*/React.createElement("div", {
-      key: domo._id,
-      className: "domo"
+      key: listing._id,
+      className: "listing"
     }, /*#__PURE__*/React.createElement("img", {
       src: "/assets/img/domoface.jpeg",
       alt: "domo face",
-      className: "domoFace"
+      className: "listingFace"
     }), /*#__PURE__*/React.createElement("h3", {
-      className: "domoName"
-    }, " Name: ", domo.name, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "domoAge"
-    }, " Age: ", domo.age, " "));
+      className: "listingName"
+    }, " Name: ", listing.name, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "listingPrice"
+    }, " Price: ", listing.price, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "listingContact"
+    }, " Contact: ", listing.contact, " "));
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "domoList"
-  }, domoNodes);
+    className: "listingList"
+  }, listingNodes);
 };
 
-var loadPubDomosFromServer = function loadPubDomosFromServer() {
-  sendAjax('GET', '/getPubDomos', null, function (data) {
-    ReactDom.render( /*#__PURE__*/React.createElement(DomoList, {
-      domos: data.domos
-    }), document.querySelector("#pubDomos"));
+var loadPubListingsFromServer = function loadPubListingsFromServer() {
+  sendAjax('GET', '/getPubListings', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ListingList, {
+      listings: data.listings
+    }), document.querySelector("#pubListings"));
   });
 };
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(DomoList, {
-    domos: []
-  }), document.querySelector("#pubDomos"));
-  loadPubDomosFromServer();
+  ReactDOM.render( /*#__PURE__*/React.createElement(ListingList, {
+    listings: []
+  }), document.querySelector("#pubListings"));
+  loadPubListingsFromServer();
 };
 
 var getToken = function getToken() {
@@ -56,13 +58,13 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
+  $("#listingMessage").animate({
     width: 'toggle'
   }, 350);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
+  $("#listingMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;

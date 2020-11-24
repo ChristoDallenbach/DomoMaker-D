@@ -1,85 +1,88 @@
-const handleDomo = (e) => {
+const handleListing = (e) => {
     e.preventDefault();
     
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#listingMessage").animate({width:'hide'},350);
     
-    if($("#domoName").val() == '' || $("#domoAge").val() == '') {
+    if($("#listingName").val() == '' || $("#listingPrice").val() == '' || $("#listingContact").val() == '') {
         handleError("RAWR! All fields are required");
         return false;
     }
     
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function() {
-        loadDomosFromServer();
+    sendAjax('POST', $("#listingForm").attr("action"), $("#listingForm").serialize(), function() {
+        loadListingsFromServer();
     });
     
     return false;
 };
 
-const DomoForm = (props) => {
+const ListingForm = (props) => {
     return (
-        <form id="domoForm" onSubmit={handleDomo} name="domoForm" action="/maker" method="POST" className="domoForm">
+        <form id="listingForm" onSubmit={handleListing} name="listingForm" action="/maker" method="POST" className="listingForm">
             <label htmlFor="name">Name: </label>
-            <input id="domoName" type="text" name="name" placeholder="Domo Name" />
-            <label htmlFor="age">Age: </label>
-            <input id="domoAge" type="text" name="age" placeholder="Domo Age" />
+            <input id="listingName" type="text" name="name" placeholder="Listing Name" />
+            <label htmlFor="price">Price: </label>
+            <input id="listingPrice" type="text" name="price" placeholder="Listing Price" />
             <label htmlFor="public">Public: </label>
-            <input id="domoPub" type="checkbox" name="public" placeholder="Domo Public" />
+            <input id="listingPub" type="checkbox" name="public" placeholder="Listing Public" />
+            <label htmlFor="contact">Contact: </label>
+            <input id="listingContact" type="text" name="contact" placeholder="Listing Contact Info" />
             <input type="hidden" name="_csrf" value={props.csrf} />
-            <input className="makeDomoSubmit" type="submit" value="Make Domo" />
+            <input className="makeListingSubmit" type="submit" value="Make Listing" />
         </form>
     );
 };
 
-const DomoList = function(props) {
-    if(props.domos.length === 0) {
+const ListingList = function(props) {
+    if(props.listings.length === 0) {
         return (
-            <div className="domoList">
-                <h3 className="emptyDomo">No Domos yet</h3>
+            <div className="listingList">
+                <h3 className="emptyListing">No Listings yet</h3>
             </div>
         );
     }
     
-    const domoNodes = props.domos.map(function(domo) {
+    const listingNodes = props.listings.map(function(listing) {
         let pub = "False";
         
-        if(domo.public){
+        if(listing.public){
             pub = "True";
         }
         
         return (
-            <div key={domo._id} className="domo">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-                <h3 className="domoName"> Name: {domo.name} </h3>
-                <h3 className="domoAge"> Age: {domo.age} </h3>
-                <h3 className="domoPub"> Public: {pub} </h3>
+            <div key={listing._id} className="listing">
+                <img src="/assets/img/domoface.jpeg" alt="domo face" className="listingFace" />
+                <h3 className="listingName"> Name: {listing.name} </h3>
+                <h3 className="listingPrice"> Price: {listing.price} </h3>
+                <h3 className="listingPub"> Public: {pub} </h3>
+                <h3 className="listingContact"> Contact: {listing.contact}</h3>
             </div>
         );
     });
     
     return (
-        <div className="domoList">
-            {domoNodes}
+        <div className="listingList">
+            {listingNodes}
         </div>
     );
 };
 
-const loadDomosFromServer = () => {
-    sendAjax('GET', '/getDomos', null, (data) => {
+const loadListingsFromServer = () => {
+    sendAjax('GET', '/getListings', null, (data) => {
         ReactDOM.render(
-            <DomoList domos={data.domos} />, document.querySelector("#domos")
+            <ListingList listings={data.listings} />, document.querySelector("#listings")
         );
     });
 };
 
 const setup = function(csrf) {
     ReactDOM.render(
-        <DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
+        <ListingForm csrf={csrf} />, document.querySelector("#makeListing")
     );
     ReactDOM.render(
-        <DomoList domos={[]} />, document.querySelector("#domos")
+        <ListingList listings={[]} />, document.querySelector("#listings")
     );
     
-    loadDomosFromServer();
+    loadListingsFromServer();
 };
 
 const getToken = () => {
