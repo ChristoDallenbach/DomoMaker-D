@@ -84,8 +84,8 @@ var ListingList = function ListingList(props) {
       key: listing._id,
       className: "listing"
     }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/domoface.jpeg",
-      alt: "domo face",
+      src: "/assets/img/shopping.png",
+      alt: "cart",
       className: "listingFace"
     }), /*#__PURE__*/React.createElement("h3", {
       className: "listingName"

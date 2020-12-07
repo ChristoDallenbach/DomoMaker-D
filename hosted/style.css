@@ -17,7 +17,7 @@ html, body {
 nav {
     width: 100%;
     height: 50px;
-    background-color: #55acee;
+    background-color: #ffd1dc;
 }
 
 nav:nth-child(1) {
@@ -28,66 +28,74 @@ nav:nth-child(1) {
     padding: 5px;
     padding-top: 12px;
     padding-left: 20px;
-    color: white;
+    color: black;
     font-size: 1.3em;
     float: left;
 }
 
 .navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
-    color: white;
+    color: black;
     text-decoration: none;
     padding: 5px;
     border-radius: 4px;
-    background-color: #55acee;
+    background-color: #ffd1dc;
     transition: background-color 0.4s ease;
 }
 
 .navlink a:hover {
     transition: background-color 0.8s ease;
-    background-color: #66bdff;
+    background-color: #ffb1dc;
 }
 
-.domoForm {
-    border: 2px solid #338acc;
+.listingForm {
+    border: 2px solid #ffb1dc;
     height: 35px;
-    width: 700px;
+    width: 80%;
+    min-width: 1000px;
+    margin: 0 auto;
     margin-top:0px;
     padding-top:10px;
-    background-color: #55acee;
+    background-color: #ffd1dc;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
 }
 
-.domoForm label {
+.listingForm label {
     display: inline-block;
-    width: 75px;
-    margin-left: 10px;
+    max-width: 75px;
+    margin-left: 3%;
     font-size: 1.2em;
     float: left;
-    color: white;
+    color: black;
 }
 
-.domoForm input[type=text] {
+.listingForm input[type=text] {
+    float:left;
+    width: 15%;
+    max-width: 180px;
+}
+
+.listingForm input[type=checkbox] {
     float:left;
 }
 
-.makeDomoSubmit {
+.makeListingSubmit {
     transition: background-color 0.4s ease;
     display: inline;
     width: 90px;
-    background-color: #55acee;
+    background-color: #ffd1dc;
     border-radius: 2px;
-    color: white;
+    color: black;
     text-decoration: none;
 }
 
-.makeDomoSubmit:link, .makeDomoSubmit:visited, .makeDomoSubmit:hover, .makeDomoSubmit:active {
-    color: white;
+.makeListingSubmit:link, .makeListingSubmit:visited, .makeListingSubmit:hover, .makeListingSubmit:active {
+    color: black;
 }
 
-.makeDomoSubmit:hover {
+.makeListingSubmit:hover {
     transition: background-color 0.4s ease;
-    background-color: #338acc;
+    background-color: #ffb1dc;
 }
 
 .mainForm {
@@ -118,21 +126,21 @@ nav:nth-child(1) {
     margin-top: 14px;
     font-size: 1.2em;
     width: 100px;
-    background-color: #55acee;
+    background-color: #ffd1dc;
     border-radius: 2px;
-    border-color: #66acee;
+    border-color: #ffb1dc;
     padding: 3px 0px;
-    color: white;
+    color: black;
     text-decoration: none;
 }
 
 .formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
-    color: white;
+    color: black;
 }
 
 .formSubmit:hover {
     transition: background-color 0.4s ease;
-    background-color: #338acc;
+    background-color: #ffb1dc;
 }
 
 #user, #pass, #pass2 {
@@ -144,91 +152,53 @@ nav:nth-child(1) {
 
 #user:focus, #pass:focus, #pass2:focus {
     outline: none;
-    box-shadow: 0px 0px 1px 1px #55acee;
+    box-shadow: 0px 0px 1px 1px #ffd1dc;
 }
 
-#domoMessage {
-    display:none;
-    top: 250px;
-    width: 250px;
-    height: 650px;
-    position: absolute;
-    z-index: 200;
-    right: 0px;
-    overflow: hidden;
-}
 
-#domoMessage h3 {
-    width: 200px;
-    position: absolute;
-    top: 0px;
-    left: 20px;
-}
 
-#speech {
-    height: 120px;
-    width: 250px;
-    z-index:300;
-}
-
-#errorMessage {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: red;
-    font-style: italic;
-}
-
-#domo {
-    z-index: 225;
-    margin-top: -20px;
-    margin-left: 135px;
-    height: 450px;
-    width: 300px;
-    -ms-transform: rotate(330deg);
-    -webkit-transform: rotate(330deg); 
-    transform: rotate(330deg);
-}
-
-#domos {
-    width: 40%;
+#listings, #pubListings {
+    width: 60%;
+    max-width: 600px;
     min-width: 400px;
-    border: 2px solid #55acee;
+    border: 2px solid #ffa1cc;
     border-radius: 4px;
     margin: 0 auto;
     margin-top: 100px;
+    font-family: 'Chelsea Market', cursive;
 }
 
-.domo {
+.listing {
     width: 95%;
     margin: 0 auto;
     margin-top: 2px;
     margin-bottom: 2px;
-    border: 2px solid #55acee;
+    border: 2px solid #ffb1dc;
     border-radius: 4px;
-    background-color: #55acee;
+    background-color: #ffd1dc;
     padding: 10px;
     min-height:60px;
     overflow: hidden;
 }
 
-.domo:hover {
+.listing:hover {
     transition: border-color 0.2s ease-out;
     border-color: rgba(255,255,255, 0.8);
     transition: background-color 2.6s ease-out;
-    background-color: #66bfff;
+    background-color: #ffb1dc;
 }
 
-img.domoFace {
-    margin-left: 25px;
-    margin-right: 10px;
-    height: 50px;
-    width: 50px;
+img.listingFace {
+    margin-left: 35%;
+    margin-right: 30%;
+    height: 80px;
+    width: 80px;
     border-radius: 4px;
     margin-top:10px;
     float:left;
 }
 
-h3.emptyDomo {
+h3.emptyListing {
     width: 400px;
     font-size: 1.5em;
     margin: 0 auto;
@@ -236,20 +206,39 @@ h3.emptyDomo {
     margin-top: 18px;
 }
 
-h3.domoName {
+h3.listingName {
     float:left;
+    margin-left: 30%;
+    margin-right: 30%;
     width: 200px;
     font-weight: bold;
-    padding-left: 65px;
     font-size: 1.5em;
 }
 
-h3.domoAge {
-    float:right;
-    text-align: left;
-    width: 100px;
+h3.listingPrice {
+    float:left;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 200px;
     font-weight: bold;
-    padding-right: 40px;
+    font-size: 1.5em;
+}
+
+h3.listingPub {
+    float:left;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 200px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+h3.listingContact {
+    float:left;
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 40%;
+    font-weight: bold;
     font-size: 1.5em;
 }
 

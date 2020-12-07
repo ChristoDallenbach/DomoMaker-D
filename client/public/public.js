@@ -11,7 +11,7 @@ const ListingList = function(props) {
         
         return (
             <div key={listing._id} className="listing">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="listingFace" />
+                <img src="/assets/img/shopping.png" alt="cart" className="listingFace" />
                 <h3 className="listingName"> Name: {listing.name} </h3>
                 <h3 className="listingPrice"> Price: {listing.price} </h3>
                 <h3 className="listingContact"> Contact: {listing.contact} </h3>
